@@ -1,5 +1,11 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import {
+  render,
+  screen as screenAlura,
+  fireEvent as fireEventAlura
+} from '@testing-library/react'
+import { screen } from '@testing-library/dom'
+import userEvent from '@testing-library/user-event'
 
 import App, { calcularNovoSaldo } from './App'
 
@@ -49,9 +55,12 @@ describe('Componente principal', () => {
 
       expect(saldo.textContent).toBe('R$ 1000')
 
-      fireEvent.click(transacao, { target: { value: 'saque' }})
-      fireEvent.change(valor, { target: { value: 10 }})
-      fireEvent.click(botaoTransacao)
+      // fireEventAlura.click(transacao, { target: { value: 'saque' }})
+      // fireEventAlura.change(valor, { target: { value: 10 }})
+      // fireEventAlura.click(botaoTransacao)
+      userEvent.click(transacao)
+      userEvent.type(valor, '10')
+      userEvent.click(botaoTransacao)
 
       expect(saldo.textContent).toBe('R$ 990')
     })
